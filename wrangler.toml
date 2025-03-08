@@ -1,0 +1,6 @@
+name = "mintservices420"
+main = "src/worker.js"
+compatibility_date = "2025-03-07"
+workers_dev = false
+preview_urls = false
+assets = { directory = "./public", binding = "ASSETS", html_handling = "force-trailing-slash", not_found_handling = "404-page" }

@@ -3,6 +3,13 @@ addEventListener('fetch', event => {
 });
 
 async function handleRequest(request) {
+  const url = new URL(request.url);
+  const path = url.pathname;
+
+  if (path.startsWith('/styles/') || path.startsWith('/scripts/')) {
+    return fetch(request);
+  }
+
   return new Response(`
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +17,7 @@ async function handleRequest(request) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steampunk Web Page</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
     <header>
@@ -31,7 +38,7 @@ async function handleRequest(request) {
     <footer>
         <p>&copy; 2025 Steampunk Enthusiasts</p>
     </footer>
-    <script src="scripts/main.js"></script>
+    <script src="/scripts/main.js"></script>
 </body>
 </html>
   `, {
