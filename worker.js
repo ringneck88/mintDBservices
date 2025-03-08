@@ -4,9 +4,11 @@ addEventListener('fetch', event => {
 
 async function handleRequest(request) {
   const url = new URL(request.url);
-  const path = url.pathname;
+	const path = url.pathname;
 
-  if (path.startsWith('src/styles/') || path.startsWith('/scripts/')) {
+	console.log(`Request received for: ${path}`);
+
+  if (path.startsWith('/src/styles/') || path.startsWith('/src/scripts/')) {
     return fetch(request);
   }
 
@@ -38,7 +40,7 @@ async function handleRequest(request) {
     <footer>
         <p>&copy; 2025 Steampunk Enthusiasts</p>
     </footer>
-    <script src="/src/scripts/main.js"></script>
+
 </body>
 </html>
   `,
