@@ -9,10 +9,5 @@
 	},
 	"devDependencies": {
 		"wrangler": "^3.114.0"
-	},
-	"dependencies": {
-		"mintservices420": "file:",
-		"pg-promise": "^11.10.2",
-		"postgres": "^3.4.5"
 	}
 }

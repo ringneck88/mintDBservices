@@ -1,11 +1,20 @@
 name = "mintservices420"
 main = "worker.js"
 compatibility_date = "2025-03-07"
+compatibility_flags = [ "nodejs_compat" ]
+
 
 assets = { directory = "./public", binding = "ASSETS", html_handling = "force-trailing-slash", not_found_handling = "404-page" }
 
 workers_dev = true
 
-[vars]
-DATABASE_URL = "your_postgresql_connection_string"
+[env]
+DATABASE_URL = "https://c1adfdb9-cf5e-4542-b62c-b5b6409e7d7a.mock.pstmn.io"
 
+
+[vars]
+DB_USERNAME = "postgres"
+# Set your password by creating a secret so it is not stored as plain text
+DB_HOST = "https://c1adfdb9-cf5e-4542-b62c-b5b6409e7d7a.mock.pstmn.io"
+DB_PORT = "5432"
+DB_NAME = "productsdb"
