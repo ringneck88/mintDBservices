@@ -1,5 +1,5 @@
 name = "mintservices420"
-main = "src/worker.js"
+main = "src/scripts/worker.js"
 compatibility_date = "2025-03-07"
 workers_dev = false
 preview_urls = false
