@@ -7,5 +7,8 @@
     "dependencies": {
         "@google-cloud/functions-framework": "^3.1.0",
         "nodejs-cloud-code-samples-functions-hello-world": "file:"
+    },
+    "devDependencies": {
+        "wrangler": "^3.114.0"
     }
 }

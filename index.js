@@ -1,9 +1,9 @@
-const functions = require('@google-cloud/functions-framework');
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request));
+});
 
-// Register an HTTP function with the Functions Framework that will be executed
-// when you make an HTTP request to the deployed function's endpoint.
-functions.http('helloHttp', (req, res) => {
-  res.send(`
+async function handleRequest(request) {
+  return new Response(`
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,10 +20,12 @@ functions.http('helloHttp', (req, res) => {
         <section>
             <h2>About Steampunk</h2>
             <p>Steampunk is a genre of science fiction that has a historical setting and typically features steam-powered machinery rather than advanced technology.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Steampunk_clock.jpg" alt="Steampunk Image 1" style="width:100%;height:auto;">
         </section>
         <section>
             <h2>Gadgets and Gizmos</h2>
             <p>Explore the fascinating world of steampunk gadgets and gizmos, from intricate clockwork devices to steam-powered contraptions.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Steampunk_airship.jpg" alt="Steampunk Image 2" style="width:100%;height:auto;">
         </section>
     </main>
     <footer>
@@ -32,5 +34,7 @@ functions.http('helloHttp', (req, res) => {
     <script src="scripts/main.js"></script>
 </body>
 </html>
-  `);
-});
+  `, {
+    headers: { 'content-type': 'text/html;charset=UTF-8' },
+  });
+}
