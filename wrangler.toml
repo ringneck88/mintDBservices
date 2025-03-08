@@ -4,5 +4,8 @@ compatibility_date = "2025-03-07"
 
 assets = { directory = "./public", binding = "ASSETS", html_handling = "force-trailing-slash", not_found_handling = "404-page" }
 
+workers_dev = true
 
+[vars]
+DATABASE_URL = "your_postgresql_connection_string"
 

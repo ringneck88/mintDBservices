@@ -1,50 +1,31 @@
+import { Client } from 'pg-promise';
+
 addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event.request));
+  event.respondWith(handleRequest(event));
 });
 
-async function handleRequest(request) {
-  const url = new URL(request.url);
-	const path = url.pathname;
+async function handleRequest(event) {
+  const { request } = event;
 
-	console.log(`Request received for: ${path}`);
+  if (request.method === 'POST') {
+    try {
+      const formData = await request.formData();
+      const name = formData.get('name');
+      const email = formData.get('email');
 
-  if (path.startsWith('/src/styles/') || path.startsWith('/src/scripts/')) {
-    return fetch(request);
+      const client = new Client({
+        connectionString: DATABASE_URL,
+      });
+
+      await client.connect();
+      await client.query('INSERT INTO users(name, email) VALUES($1, $2)', [name, email]);
+      await client.end();
+
+      return new Response('Data saved successfully', { status: 200 });
+    } catch (error) {
+      return new Response('Error saving data', { status: 500 });
+    }
   }
 
-  return new Response(`
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steampunk Web Page</title>
-    <link rel="stylesheet" href="src/styles/style.css">
-</head>
-<body>
-    <header>
-        <h1>Welcome to the Steampunk World</h1>
-    </header>
-    <main>
-        <section>
-            <h2>About Steampunk</h2>
-            <p>Steampunk is a genre of science fiction that has a historical setting and typically features steam-powered machinery rather than advanced technology.</p>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Steampunk_clock.jpg" alt="Steampunk Image 1" style="width:100%;height:auto;">
-        </section>
-        <section>
-            <h2>Gadgets and Gizmos</h2>
-            <p>Explore the fascinating world of steampunk gadgets and gizmos, from intricate clockwork devices to steam-powered contraptions.</p>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Steampunk_airship.jpg" alt="Steampunk Image 2" style="width:100%;height:auto;">
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2025 Steampunk Enthusiasts</p>
-    </footer>
-
-</body>
-</html>
-  `,
-{
-    headers: { 'content-type': 'text/html;charset=UTF-8' },
-  });
+  return new Response('Method not allowed', { status: 405 });
 }
